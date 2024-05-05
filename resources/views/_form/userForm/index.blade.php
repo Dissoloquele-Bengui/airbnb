@@ -24,12 +24,13 @@
             <label for="tipo">Nível de Acesso*</label>
             <select name="tipo"
                 id="nivel{{isset($user)?$user->id:''}}" class="form-control select2">
-                    @if (!isset($campeonato_view))
-                        <option value="Admin de Campeonato" {{isset($user)?$user->tipo=="Admin de Campeonato"?'selected':'':''}}>Administrador de Campeonato</option>
-
-                        <option value="Administrador" {{isset($user)?$user->tipo=="Administrador"?'selected':'':''}}>Administrador</option>
+                    @if (Auth::user()->nivel=="Administrador" || Auth::user()->nivel=="Admin de Campeonato")
+                        <option value="Admin de Campeonato" {{isset($user)?$user->nivel=="Admin de Campeonato"?'selected':'':''}}>Administrador de Campeonato</option>
+                        <option value="Administrador de Equipa"  {{isset($user)?$user->nivel=="Admin de Equipa"?'selected':'':''}}>Administrador de Equipa</option>
+                        <option value="Arbitro" {{isset($user)?$user->nivel=="Arbitro"?'selected':'':''}}>Arbitro</option>
+                        <option value="Administrador" {{isset($user)?$user->nivel=="Administrador"?'selected':'':''}}>Administrador</option>
                     @else
-                        <option value="Admin de Campeonato" {{isset($user)?$user->tipo=="Admin de Campeonato"?'selected':'':''}}>Administrador de Campeonato</option>
+                        <option value="{{Auth::user()->nivel}}" >{{Auth::user()->nivel}}</option>
 
                     @endif
             </select>

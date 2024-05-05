@@ -97,45 +97,12 @@ Route::prefix('horario')->group(function () {
     //Rota de eliminar/purgar
     Route::get('purge/{id}', ['as' => 'admin.horario.purge', 'uses' => 'Admin\HorarioController@purge']);
 });
-Route::prefix('prato')->group(function () {
-    //Rota de listar
-
-Route::get('index', ['as' => 'admin.prato.index', 'uses' => 'Admin\PratoController@index']);
-//Rota de cadastrar
-Route::post('store', ['as' => 'admin.prato.store', 'uses' => 'Admin\PratoController@store']);
-//Rota de actualizar
-Route::post('update/{id}', ['as' => 'admin.prato.update', 'uses' => 'Admin\PratoController@update']);
-//Rota de marcar como eliminado
-Route::get('destroy/{id}', ['as' => 'admin.prato.destroy', 'uses' => 'Admin\PratoController@destroy']);
-//Rota de eliminar
-Route::get('purge/{id}', ['as' => 'admin.prato.purge', 'uses' => 'Admin\PratoController@purge']);
-});
-Route::prefix('venda')->group(function () {
-//Rota para listar as actividades
-
-Route::get('index', ['as' => 'admin.vendas.index', 'uses' => 'Admin\VendaController@index']);
-});
-Route::prefix('cheque_refeicao')->group(function () {
-    //Rota de listar
-
-Route::get('index', ['as' => 'admin.cheque_refeicao.index', 'uses' => 'Admin\ChequeRefeicaoController@index']);
-//Rota de cadastrar
-
-Route::post('store', ['as' => 'admin.cheque_refeicao.store', 'uses' => 'Admin\ChequeRefeicaoController@store']);
-    //Rota de actualizar
-
-
-    Route::post('update/{id}', ['as' => 'admin.cheque_refeicao.update', 'uses' => 'Admin\ChequeRefeicaoController@update']);
-//Rota de marcar como eliminado
-
-    Route::get('destroy/{id}', ['as' => 'admin.cheque_refeicao.destroy', 'uses' => 'Admin\ChequeRefeicaoController@destroy']);
-//Rota de eliminar
-
-    Route::get('purge/{id}', ['as' => 'admin.cheque_refeicao.purge', 'uses' => 'Admin\ChequeRefeicaoController@purge']);
-});
 Route::prefix('user')->group(function () {
     //Rota de listar
     Route::get('index', ['as' => 'admin.user.index', 'uses' => 'Admin\UserController@index']);
+    //Rota de Edição de Perfil
+    Route::get('perfil', ['as' => 'admin.user.perfil', 'uses' => 'Admin\UserController@perfil']);
+
     //Rota de cadastrar
     Route::post('store', ['as' => 'admin.user.store', 'uses' => 'Admin\UserController@store']);
     //rota de actualizar

@@ -14,6 +14,7 @@ use App\Models\GolsJogador;
 use App\Models\Campeonato;
 use App\Models\Jogo;
 use App\Models\CampeonatoEquipa;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -40,15 +41,25 @@ class JogoController extends Controller
         $data['jogos'] = Jogo::join('epocas','epocas.id','jogos.id_epoca')
             ->select('jogos.*', 'epocas.nome as epoca')
             ->get();
+        if(Auth::user()->nivel == "Arbitro"){
+            $data['jogos']=$data['jogos']->where('id_arbitro',Auth::user()->nivel);
+        }
         $data['equipas']=CampeonatoEquipa::join('equipas','equipas.id','campeonato_equipas.id_equipa')
             ->join('campeonatos','campeonatos.id','campeonato_equipas.id_campeonato')
             ->select('campeonato_equipas.*','equipas.nome as equipa','campeonatos.nome as campeonato')
             ->get();
+
         $data['epocas']= EpocaCampeonato::join('epocas','epocas.id','epoca_campeonatos.id_epoca')
             ->select('epoca_campeonatos.*', 'epocas.nome')
             ->get();
+
         $data['campeonatos']=Campeonato::all();
+
         $data['jogadores']=Jogador::all();
+
+        $data['users']=User::where('nivel',"Arbitro")
+            ->get();
+
         $this->loggerData("Listou Jogos");
 
         return view('admin.jogo.index', $data);
@@ -95,7 +106,8 @@ class JogoController extends Controller
                 'hora_inicio'=>$request->hora_inicio,
                 'hora_termino'=>$request->hora_termino,
                 'dia'=>$request->dia,
-                'id_epoca'=>$request->id_epoca
+                'id_epoca'=>$request->id_epoca,
+                'id_arbitro'=>$request->id_arbitro
 
             ]);
 
@@ -410,6 +422,7 @@ class JogoController extends Controller
                 'hora_inicio'=>$request->hora_inicio,
                 'hora_termino'=>$request->hora_termino,
                 'dia'=>$request->dia,
+                'id_arbitro'=>$request->id_arbitro
             ]);
 
             $this->loggerData("Editou o jogo que possui o id $jogo->id ");

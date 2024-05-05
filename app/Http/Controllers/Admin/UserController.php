@@ -33,9 +33,8 @@ class UserController extends Controller
     public function index(){
 
             $data['usuarios'] = User::all();
-        if(Auth::user()->nivel == "Admin de Campeonato"){
-            $data['usuarios'] = User::where('id',Auth::user()->id)
-                ->get();
+        if(Auth::user()->nivel!="Administrador" || Auth::user()->nivel!="Admin de Campeonato"){
+            return view('admin.usuario.edit.index',);
 
         }
         $this->loggerData("Listou Usuários");
@@ -43,10 +42,10 @@ class UserController extends Controller
         return view('admin.usuario.index', $data);
 
     }
-    public function create(){
+    public function perfil(){
 
 
-        return view('admin.usuario.create.index');
+        return view('admin.usuario.edit.index');
     }
 
     /**

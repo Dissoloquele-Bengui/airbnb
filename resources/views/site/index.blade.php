@@ -5,13 +5,13 @@
 	<div class="hero-area hero-bg" style="background-image: url({{asset('assets/banner2.webp')}})">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-9 offset-lg-2 text-center">
+				<div class="text-center col-lg-9 offset-lg-2">
 					<div class="hero-text">
 						<div class="hero-text-tablecell">
 							<p class="subtitle">Gestão de Campeonatos</p>
 							<h3 style="color:white">Gerencie seus campeonatos de futebol com facilidade.</h3>
 							<div class="hero-btns">
-								<a href="#"  class=" boxed-btn">Comece agora</a>
+								<a href="{{route('register')}}"  class=" boxed-btn">Comece agora</a>
 								<a href="{{route('sgcf.site.sobre')}}" class="bordered-btn">Sobre Nós</a>
 							</div>
 						</div>
@@ -27,7 +27,7 @@
 		<div class="container">
 
 			<div class="row">
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+				<div class="mb-4 col-lg-4 col-md-6 mb-lg-0">
 					<div class="list-box d-flex align-items-center">
 						<div class="list-icon">
 							<i class="fas fa-user-md"></i>
@@ -38,7 +38,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+				<div class="mb-4 col-lg-4 col-md-6 mb-lg-0">
 					<div class="list-box d-flex align-items-center">
 						<div class="list-icon">
 							<i class="fas fa-phone-volume"></i>
@@ -70,7 +70,7 @@
 	<div class="product-section mt-150 mb-150">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="text-center col-lg-8 offset-lg-2">
 					<div class="section-title">
 						<h3><span class="orange-text">Nossos</span> Serviços de Gestão</h3>
 						<p>No nosso sistema de gestão de campeonatos de futebol, oferecemos uma plataforma completa para você administrar seus torneios de forma eficaz e organizada. Desde a gestão de equipes até a atualização em tempo real dos resultados, estamos aqui para simplificar sua vida como organizador.</p>
@@ -78,8 +78,8 @@
 				</div>
 			</div>
 
-			
-            
+
+
 		</div>
 	</div>
 	<!-- end product section -->
@@ -99,7 +99,7 @@
 						<p class="top-sub">Desde 2024</p>
 						<h2><span class="orange-text">Gestão de Campeonatos</span></h2>
 						<p>Bem-vindo ao nosso sistema de gestão de campeonatos de futebol. Estamos aqui para simplificar sua vida como organizador, proporcionando ferramentas poderosas para gerenciar equipes, agendar jogos e manter seus torneios atualizados. Com nossa plataforma, você pode focar no que realmente importa: o jogo!</p>
-						<a href="{{route('sgcf.site.sobre')}}" class="boxed-btn mt-4">Saiba Mais...</a>
+						<a href="{{route('sgcf.site.sobre')}}" class="mt-4 boxed-btn">Saiba Mais...</a>
 					</div>
 				</div>
 			</div>

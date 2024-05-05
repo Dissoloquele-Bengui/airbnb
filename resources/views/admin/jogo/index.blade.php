@@ -15,12 +15,14 @@
             <div class="card-body">
               <div class="mb-3 toolbar row">
                 <div class="ml-auto col">
-                    <div class="float-right dropdown">
-                      <button class="float-right ml-3 btn btn-primary"
-                      class="btn botao" data-toggle="modal" data-target="#ModalCreate"
-                      type="button">Adicionar +</button>
+                    @if (Auth::user()->nivel != "Arbitro")
+                        <div class="float-right dropdown">
+                            <button class="float-right ml-3 btn btn-primary"
+                            class="btn botao" data-toggle="modal" data-target="#ModalCreate"
+                            type="button">Adicionar +</button>
 
-                    </div>
+                            </div>
+                    @endif
                   </div>
 
               </div>
@@ -56,10 +58,15 @@
                                     <span class="sr-only text-muted">Action</span>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ModalEdit{{$jogo->id}}">{{ __('Editar') }}</a>
-                                        <a class="dropdown-item" href="{{route('admin.jogo.edit',['id'=>$jogo->id])}}" >{{ __('Editar Resultado') }}</a>
-                                        <a class="dropdown-item" href="{{route('admin.jogo.destroy',['id'=>$jogo->id])}}">{{ __('Remover') }}</a>
-                                        <a class="dropdown-item" href="{{route('admin.jogo.purge',['id'=>$jogo->id])}}">{{ __('Purgar') }}</a>
+                                        @if (Auth::user()->nivel != "Arbitro")
+                                            <div class="float-right dropdown">
+                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ModalEdit{{$jogo->id}}">{{ __('Editar') }}</a>
+                                                <a class="dropdown-item" href="{{route('admin.jogo.edit',['id'=>$jogo->id])}}" >{{ __('Editar Resultado') }}</a>
+                                                <a class="dropdown-item" href="{{route('admin.jogo.destroy',['id'=>$jogo->id])}}">{{ __('Remover') }}</a>
+                                                <a class="dropdown-item" href="{{route('admin.jogo.purge',['id'=>$jogo->id])}}">{{ __('Purgar') }}</a>
+                                            </div>
+                                        @endif
+
                                     </div>
                                 </div>
                             </td>
@@ -151,14 +158,14 @@
                 if (!contador.hasOwnProperty(id)) {
                     contador[id] = 0;
                 }
-                console.log(response); 
+                console.log(response);
                 let fields = `
                     <div class="col-md-6 golJogador${contador[id]}">
                         <div class="mb-3 form-group">
                             <label for="Gol">Jogador*</label>
                             <select name="jogador_id${contador[id]}" class="select2 form-control">
                 `;
-                
+
                 // Iterar sobre os jogadores e adicionar opções ao select
                 response.jogadores.forEach(function(jogador) {
                     fields += `<option value="${jogador.id}">${jogador.nome} | ${jogador.equipa}</option>`;
@@ -174,7 +181,7 @@
                             <input type="number" value="" name="qtd_gol[${contador[id]}]" class="form-control" required>
                         </div>
                     </div> <!-- /.col -->
-                    <div class="col-md-12 golJogador${contador[id]} text-right"> <a style="font-size:20px !important;" class="btn p-2 text text-right" onclick="add_gol_field(${id})">+</a> <a style="font-size:20px !important;" class="btn p-2 text text-right" onclick="removeGolJogador(${contador[id]})">-</a><div>
+                    <div class="col-md-12 golJogador${contador[id]} text-right"> <a style="font-size:20px !important;" class="p-2 text-right btn text" onclick="add_gol_field(${id})">+</a> <a style="font-size:20px !important;" class="p-2 text-right btn text" onclick="removeGolJogador(${contador[id]})">-</a><div>
                     <hr style="color:black" class="golJogador${contador[id]}">
                 `;
 
@@ -198,7 +205,7 @@
             },
             method:"GET",
             success: function(response){
-                console.log(response); 
+                console.log(response);
                 if (!contador_assistencia.hasOwnProperty(id)) {
                     contador_assistencia[id] = 0;
                 }
@@ -222,7 +229,7 @@
                             <input type="number" value="" name="qtd_assistencias[${contador_assistencia[id]}]" class="form-control" required>
                         </div>
                     </div> <!-- /.col -->
-                    <div class="col-md-12 assistenciaJogador${contador_assistencia[id]} text-right"> <a style="font-size:20px !important;" class="btn p-2 text text-right" onclick="add_assistencia_field(${id})">+</a><a style="font-size:20px !important;" class="btn p-2 text text-right" onclick="removeAssistenciaJogador(${contador_assistencia[id]})">-</a><div>
+                    <div class="col-md-12 assistenciaJogador${contador_assistencia[id]} text-right"> <a style="font-size:20px !important;" class="p-2 text-right btn text" onclick="add_assistencia_field(${id})">+</a><a style="font-size:20px !important;" class="p-2 text-right btn text" onclick="removeAssistenciaJogador(${contador_assistencia[id]})">-</a><div>
                     <hr class="assistenciaJogador${contador_assistencia[id]}" style="color:black">
                 `;
 
@@ -304,7 +311,7 @@
 <script>
     function change_team_fields(){
         let option = $('#id_campeonato').val();
-        
+
         // Fazer solicitação AJAX para obter os dados filtrados do servidor
         $.ajax({
             url: "{{route('admin.jogo.getDataByCampeonato')}}",
@@ -321,7 +328,7 @@
                     $('#id_epoca').append('<option value="' + epoca.id + '">' + epoca.nome + '</option>');
                 });
                 $.each(response.equipas, function(index, equipa) {
-                    
+
                     $('#id_campeonato_equipa_1').append('<option value="' + equipa.id + '">' + equipa.equipa + '</option>');
                     $('#id_campeonato_equipa_2').append('<option value="' + equipa.id + '">' + equipa.equipa + '</option>');
                 });
@@ -330,7 +337,7 @@
                 console.error(error," "+status+" "+xhr);
             }
         });
-        
+
         $('.select2').select2();
 
     }

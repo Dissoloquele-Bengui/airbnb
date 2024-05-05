@@ -9,166 +9,127 @@ use App\Models\Logger;
 
 class CategoriaNotificacaoController extends Controller
 {
+    private $logger;
 
-
-    public function __construct(){
-
-        $this->logger=new Logger();
-
-    }
-    public function loggerData($mensagem){
-
-        $this->logger->Log('info',$mensagem);
+    public function __construct()
+    {
+        $this->logger = new Logger();
     }
 
+    public function loggerData($mensagem)
+    {
+        $this->logger->Log('info', $mensagem);
+    }
 
-
-    public function index(){
-        $data['categoria_notificacoes']=CategoriaNotificacao::all();
-
+    public function index()
+    {
+        $categoria_notificacoes = CategoriaNotificacao::all();
 
         $this->loggerData("Listou as Categorias das Notificações");
 
-        return view('admin.categoria_notificacao.index', $data);
-
+        return response()->json($categoria_notificacoes, 200);
     }
 
-
-
-    public function create(){
-
-
-        return view('admin.categoria_notificacao.create.index',$data);
+    public function create()
+    {
+        return response()->json('Not implemented', 501);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-     public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
-            'vc_nome'=>'required',
-        ],[
-            'vc_nome.required'=>'O nome é um campo obrigatório',
-
-
+            'vc_nome' => 'required',
+        ], [
+            'vc_nome.required' => 'O nome é um campo obrigatório',
         ]);
-        //dd($request);
-        try{
-            $categoria_notificacao=CategoriaNotificacao::create([
-                'vc_nome'=>$request->vc_nome,
-                'lt_descricao'=>$request->lt_descricao,
 
-
+        try {
+            $categoria_notificacao = CategoriaNotificacao::create([
+                'vc_nome' => $request->vc_nome,
+                'lt_descricao' => $request->lt_descricao,
             ]);
 
-             $this->loggerData(" Cadastrou uma categoria de notificação " . $request->vc_nome);
+            $this->loggerData(" Cadastrou uma categoria de notificação " . $request->vc_nome);
 
-            return redirect()->back()->with('categoria_notificacao.create.success',1);
-
-         } catch (\Throwable $th) {
-            throw $th;
-            dd($th);
-            return redirect()->back()->with('categoria_notificacao.create.error',1);
+            return response()->json($categoria_notificacao, 201);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 500);
         }
+    }
 
-
-     }
-
-
-      /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(int $id)
     {
-        //
+        $categoria_notificacao = CategoriaNotificacao::find($id);
+        if (!$categoria_notificacao) {
+            return response()->json('Categoria de notificação não encontrada', 404);
+        }
+
+        return response()->json($categoria_notificacao, 200);
     }
 
     public function edit(int $id)
     {
-        //
-        $data["categoria_notificacao"] = CategoriaNotificacao::find($id);
-
-
-        return view('admin.categoria_notificacao.edit.index',$data);
+        return response()->json('Not implemented', 501);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-
-
-     public function update(Request $request, int $id)
-     {
+    public function update(Request $request, int $id)
+    {
         $request->validate([
-            'vc_nome'=>'required',
-        ],[
-            'vc_nome.required'=>'O nome é um campo obrigatório',
-
+            'vc_nome' => 'required',
+        ], [
+            'vc_nome.required' => 'O nome é um campo obrigatório',
         ]);
-          try {
-             //code...
-             $categoria_notificacao = CategoriaNotificacao::find($id);
 
-             $c =CategoriaNotificacao::findOrFail($id)->update([
-                'vc_nome'=>$request->vc_nome,
-                'lt_descricao'=>$request->lt_descricao,
+        try {
+            $categoria_notificacao = CategoriaNotificacao::find($id);
+            if (!$categoria_notificacao) {
+                return response()->json('Categoria de notificação não encontrada', 404);
+            }
 
-             ]);
-            $this->loggerData("Editou a categoria de notificação que possui o id $categoria_notificacao->id  e nome  $categoria_notificacao->vc_nome");
-             return redirect()->back()->with('categoria_notificacao.update.success',1);
-          } catch (\Throwable $th) {
-             return redirect()->back()->with('categoria_notificacao.update.error',1);
-          }
-     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+            $categoria_notificacao->update([
+                'vc_nome' => $request->vc_nome,
+                'lt_descricao' => $request->lt_descricao,
+            ]);
+
+            $this->loggerData("Editou a categoria de notificação que possui o id $categoria_notificacao->id e nome $categoria_notificacao->vc_nome");
+
+            return response()->json($categoria_notificacao, 200);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 500);
+        }
+    }
+
     public function destroy(int $id)
     {
-        //
         try {
-            //code...
-            $categoria_notificacao =CategoriaNotificacao::findOrFail( $id);
+            $categoria_notificacao = CategoriaNotificacao::find($id);
+            if (!$categoria_notificacao) {
+                return response()->json('Categoria de notificação não encontrada', 404);
+            }
 
-            CategoriaNotificacao::findOrFail($id)->delete();
-            $this->loggerData(" Eliminou o categoria de notificação , ($categoria_notificacao->vc_nome)");
-            return redirect()->back()->with('categoria_notificacao.destroy.success',1);
+            $categoria_notificacao->delete();
+            $this->loggerData("Eliminou a categoria de notificação ($categoria_notificacao->vc_nome)");
+
+            return response()->json('Categoria de notificação excluída com sucesso', 200);
         } catch (\Throwable $th) {
-            //throw $th;
-            return redirect()->back()->with('categoria_notificacao.destroy.error',1);
+            return response()->json($th->getMessage(), 500);
         }
     }
 
     public function purge(int $id)
     {
-        //
         try {
-            //code...
-            $categoria_notificacao = CategoriaNotificacao::findOrFail($id);
-            CategoriaNotificacao::findOrFail($id)->forceDelete();
-            $this->loggerData(" Purgou a categoria de notificação  ($categoria_notificacao->vc_nome)");
-            return redirect()->back()->with('categoria_notificacao.purge.success',1);
+            $categoria_notificacao = CategoriaNotificacao::withTrashed()->find($id);
+            if (!$categoria_notificacao) {
+                return response()->json('Categoria de notificação não encontrada', 404);
+            }
+
+            $categoria_notificacao->forceDelete();
+            $this->loggerData("Purgou a categoria de notificação ($categoria_notificacao->vc_nome)");
+
+            return response()->json('Categoria de notificação purgada com sucesso', 200);
         } catch (\Throwable $th) {
-            //throw $th;
-            return redirect()->back()->with('categoria_notificacao.purge.error',1);
+            return response()->json($th->getMessage(), 500);
         }
     }
-
-
 }
