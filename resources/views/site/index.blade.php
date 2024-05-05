@@ -11,7 +11,11 @@
 							<p class="subtitle">Gestão de Campeonatos</p>
 							<h3 style="color:white">Gerencie seus campeonatos de futebol com facilidade.</h3>
 							<div class="hero-btns">
-								<a href="{{route('register')}}"  class=" boxed-btn">Comece agora</a>
+                                @if (Auth::check())
+                                    <a href="/dashboard"  class=" boxed-btn">Comece agora</a>
+                                @else
+                                    <a href="{{route('register')}}"  class=" boxed-btn">Comece agora</a>
+                                @endif
 								<a href="{{route('sgcf.site.sobre')}}" class="bordered-btn">Sobre Nós</a>
 							</div>
 						</div>
