@@ -114,6 +114,113 @@
         </div>
     </div>
 </div>
+<script>
+    function addFieldUser(){
+       let option =  $('#nivel').val();
+       $('#fieldUser').html('');
+       // alert(option);
+       if(option == "Funcionário"){
+            $('#fieldUser').append(`
+                <div class="col-md-12">
+                    <div class="mb-3 form-group">
+                        <label for="id_hospital">empresa*</label>
+                        <select name="id_hospital" id="" class="form-control select2">
+                            @foreach($hospitais as $empresa)
+                                <option value="{{$empresa->id}}" >
+                                    {{$empresa->nome}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div> <!-- /.col -->
+            `);
+       }else if(option === "Médico"){
+            $('#fieldUser').append(`
+
+                <div class="col-md-6">
+                    <div class="mb-3 form-group">
+                        <label for="id_hospital">empresa*</label>
+                        <select name="id_hospital" id="" class="form-control select2">
+                            @foreach($hospitais as $hospital)
+                                <option value="{{$hospital->id}}" >
+                                    {{$hospital->nome}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div> <!-- /.col -->
+                <div class="col-md-6">
+                    <div class="mb-3 form-group">
+                        <label for="id_hospital">Especialidade*</label>
+                        <select name="id_especialidade" id="" class="form-control select2">
+                            @foreach($especialidades as $especialidade)
+                                <option value="{{$especialidade->id}}" >
+                                    {{$especialidade->nome}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div> <!-- /.col -->
+
+            `);
+       }else{
+        $('#fieldUser').html('');
+       }
+       $('.select2').select2();
+    }
+    function addFieldUserUpdate(id){
+       let option =  $('#nivel'+id).val();
+
+       if(option == "Funcionário"){
+            $('#fieldUser'+id).append(`
+                <div class="col-md-12">
+                    <div class="mb-3 form-group">
+                        <label for="id_hospital">empresa*</label>
+                        <select name="id_hospital" id="" class="form-control select2">
+                            @foreach($hospitais as $empresa)
+                                <option value="{{$empresa->id}}" >
+                                    {{$empresa->nome}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div> <!-- /.col -->
+            `);
+       }else if(option === "Médico"){
+            $('#fieldUser'+id).append(`
+
+                <div class="col-md-6">
+                    <div class="mb-3 form-group">
+                        <label for="id_hospital">empresa*</label>
+                        <select name="id_hospital" id="" class="form-control select2">
+                            @foreach($hospitais as $hospital)
+                                <option value="{{$hospital->id}}" >
+                                    {{$hospital->nome}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div> <!-- /.col -->
+                <div class="col-md-6">
+                    <div class="mb-3 form-group">
+                        <label for="id_hospital">Especialidade*</label>
+                        <select name="id_especialidade" id="" class="form-control select2">
+                            @foreach($especialidades as $especialidade)
+                                <option value="{{$especialidade->id}}" >
+                                    {{$especialidade->nome}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div> <!-- /.col -->
+
+            `);
+       }else{
+        $('#fieldUser'+id).html('');
+       }
+       $('.select2').select2();
+    }
+</script>
 {{-- ModalCreate --}}
 @if (session('user.destroy.success'))
     <script>

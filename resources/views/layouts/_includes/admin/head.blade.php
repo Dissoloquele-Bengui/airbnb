@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ asset('logo3.png') }}">
+    <link rel="icon" href="{{ asset('logo2.png') }}">
     <title>Paínel Administrativo - @yield('titulo')</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{{ asset('painel/css/simplebar.css') }}">

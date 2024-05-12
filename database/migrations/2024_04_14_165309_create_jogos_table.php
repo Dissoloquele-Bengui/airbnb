@@ -24,13 +24,13 @@ return new class extends Migration
                 ->references('id')
                 ->on('campeonato_equipas')
                 ->onDelete('cascade');
-            
+
             $table->foreign('id_epoca')
                 ->references('id')
                 ->on('epocas')
                 ->onDelete('cascade');
             $table->time('hora_inicio');
-            $table->time('hora_termino');
+            $table->time('hora_fim');
             $table->date('dia');
             $table->integer('gols_1')->default(0);
             $table->integer('gols_2')->default(0);

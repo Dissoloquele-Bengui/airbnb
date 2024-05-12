@@ -25,7 +25,7 @@
 								<i class="far fa-sad-cry"></i>
 								<h1>Oops! Página Não Encontrada.</h1>
 								<p>A página requisitada não foi encontrada.</p>
-								<a href="{{route('sgcf.site.index')}}" class="boxed-btn">Voltar Aos Trilhos</a>
+								<a href="{{route('villa.site.index')}}" class="boxed-btn">Voltar Aos Trilhos</a>
 							</div>
 						</div>
 					</div>

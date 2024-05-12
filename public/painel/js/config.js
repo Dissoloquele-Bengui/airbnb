@@ -58,12 +58,12 @@
 //   }, 500);
 
 
-var baseImagePath = '/logo3.png';
-var collapsedImagePath = '/logo3.png';
+var baseImagePath = '/logo2.png';
+var collapsedImagePath = '/logo2.png';
 var imagem = document.getElementById('menuImage');
 
-// var baseImagePath = '/painel/assets/images/logo.png';
-// var collapsedImagePath = '/painel/assets/images/logo.png';
+// var baseImagePath = '/painel/assets/images/logo2.png';
+// var collapsedImagePath = '/painel/assets/images/logo2.png';
 // var imagem = document.getElementById('menuImage');
 
 // ...

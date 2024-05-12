@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\CategoriaNotificacao;
 use App\Models\EstadoNotificacao;
 use App\Models\Andar;
+use App\Models\Estado_Notificacoe;
 use App\Models\Professor;
 use App\Models\Turma;
 use App\Models\TurmaProfessor;

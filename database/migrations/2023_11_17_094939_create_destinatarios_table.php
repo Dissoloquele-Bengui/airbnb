@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('destinatarios');
+      /*  Schema::dropIfExists('destinatarios');
         Schema::create('destinatarios', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_usuario');
@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-        });
+        });*/
     }
 
     /**

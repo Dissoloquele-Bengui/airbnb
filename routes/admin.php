@@ -61,29 +61,92 @@ Route::prefix('consulta')->group(function () {
     //Rota de eliminar/purgar
     Route::get('purge/{id}', ['as' => 'admin.consulta.purge', 'uses' => 'Admin\ConsultaController@purge']);
 });
-Route::prefix('tipo_consulta')->group(function () {
+
+
+Route::prefix('tipo_propriedade')->group(function () {
     //Rota de listar
-    Route::get('index', ['as' => 'admin.tipo_consulta.index', 'uses' => 'Admin\TipoConsultaController@index']);
+    Route::get('index', ['as' => 'admin.tipo_propriedade.index', 'uses' => 'Admin\TipoPropriedadeController@index']);
     //Rota para armazenar
-    Route::post('store', ['as' => 'admin.tipo_consulta.store', 'uses' => 'Admin\TipoConsultaController@store']);
+    Route::post('store', ['as' => 'admin.tipo_propriedade.store', 'uses' => 'Admin\TipoPropriedadeController@store']);
     //Rota para actualizar
-    Route::post('update/{id}', ['as' => 'admin.tipo_consulta.update', 'uses' => 'Admin\TipoConsultaController@update']);
+    Route::post('update/{id}', ['as' => 'admin.tipo_propriedade.update', 'uses' => 'Admin\TipoPropriedadeController@update']);
     //Rota para marcar como eliminado
-    Route::get('destroy/{id}', ['as' => 'admin.tipo_consulta.destroy', 'uses' => 'Admin\TipoConsultaController@destroy']);
+    Route::get('destroy/{id}', ['as' => 'admin.tipo_propriedade.destroy', 'uses' => 'Admin\TipoPropriedadeController@destroy']);
     //Rota de eliminar/purgar
-    Route::get('purge/{id}', ['as' => 'admin.tipo_consulta.purge', 'uses' => 'Admin\TipoConsultaController@purge']);
+    Route::get('purge/{id}', ['as' => 'admin.tipo_propriedade.purge', 'uses' => 'Admin\TipoPropriedadeController@purge']);
 });
-Route::prefix('tipo_consulta_hospital')->group(function () {
+Route::prefix('Notificacao')->group(function () {
+    Route::get('vizualize', ['as' => 'admin.notificacao.vizualize', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@vizualize']);
+
+});
+Route::prefix('Relatorio')->group(function () {
+    Route::get('filtro', ['as' => 'admin.relatorio.index', 'uses' => 'App\Http\Controllers\Admin\RelatorioController@filtro']);
+
+    Route::post('gerar', ['as' => 'admin.relatorio.gerar', 'uses' => 'App\Http\Controllers\Admin\RelatorioController@gerar']);
+
+});
+Route::prefix('propriedade')->group(function () {
     //Rota de listar
-    Route::get('index', ['as' => 'admin.tipo_consulta_hospital.index', 'uses' => 'Admin\TipoConsultaHospitalController@index']);
+    Route::get('index', ['as' => 'admin.propriedade.index', 'uses' => 'Admin\PropriedadeController@index']);
     //Rota para armazenar
-    Route::post('store', ['as' => 'admin.tipo_consulta_hospital.store', 'uses' => 'Admin\TipoConsultaHospitalController@store']);
+    Route::post('store', ['as' => 'admin.propriedade.store', 'uses' => 'Admin\PropriedadeController@store']);
     //Rota para actualizar
-    Route::post('update/{id}', ['as' => 'admin.tipo_consulta_hospital.update', 'uses' => 'Admin\TipoConsultaHospitalController@update']);
+    Route::post('update/{id}', ['as' => 'admin.propriedade.update', 'uses' => 'Admin\PropriedadeController@update']);
+    Route::post('updateAdmin/{id}', ['as' => 'admin.propriedade.updateAdmin', 'uses' => 'Admin\PropriedadeController@updateAdmin']);
     //Rota para marcar como eliminado
-    Route::get('destroy/{id}', ['as' => 'admin.tipo_consulta_hospital.destroy', 'uses' => 'Admin\TipoConsultaHospitalController@destroy']);
+    Route::get('destroy/{id}', ['as' => 'admin.propriedade.destroy', 'uses' => 'Admin\PropriedadeController@destroy']);
     //Rota de eliminar/purgar
-    Route::get('purge/{id}', ['as' => 'admin.tipo_consulta_hospital.purge', 'uses' => 'Admin\TipoConsultaHospitalController@purge']);
+    Route::get('purge/{id}', ['as' => 'admin.propriedade.purge', 'uses' => 'Admin\PropriedadeController@purge']);
+});
+
+Route::prefix('consulta')->group(function () {
+    //Rota de listar
+    Route::get('index', ['as' => 'admin.consulta.index', 'uses' => 'Admin\ConsultaController@index']);
+    //Rota para armazenar
+    Route::post('store', ['as' => 'admin.consulta.store', 'uses' => 'Admin\ConsultaController@store']);
+    //Rota para actualizar
+    Route::post('update/{id}', ['as' => 'admin.consulta.update', 'uses' => 'Admin\ConsultaController@update']);
+    //Rota para marcar como eliminado
+    Route::get('destroy/{id}', ['as' => 'admin.consulta.destroy', 'uses' => 'Admin\ConsultaController@destroy']);
+    //Rota de eliminar/purgar
+    Route::get('purge/{id}', ['as' => 'admin.consulta.purge', 'uses' => 'Admin\ConsultaController@purge']);
+});
+Route::prefix('horario')->group(function () {
+    //Rota de listar
+    Route::get('index', ['as' => 'admin.horario.index', 'uses' => 'Admin\HorarioController@index']);
+    //Rota para armazenar
+    Route::post('store', ['as' => 'admin.horario.store', 'uses' => 'Admin\HorarioController@store']);
+    //Rota para actualizar
+    Route::post('update/{id}', ['as' => 'admin.horario.update', 'uses' => 'Admin\HorarioController@update']);
+    //Rota para marcar como eliminado
+    Route::get('destroy/{id}', ['as' => 'admin.horario.destroy', 'uses' => 'Admin\HorarioController@destroy']);
+    //Rota de eliminar/purgar
+    Route::get('purge/{id}', ['as' => 'admin.horario.purge', 'uses' => 'Admin\HorarioController@purge']);
+});
+
+Route::prefix('especialidade')->group(function () {
+    //Rota de listar
+    Route::get('index', ['as' => 'admin.especialidade.index', 'uses' => 'Admin\EspecialidadeController@index']);
+    //Rota para armazenar
+    Route::post('store', ['as' => 'admin.especialidade.store', 'uses' => 'Admin\EspecialidadeController@store']);
+    //Rota para actualizar
+    Route::post('update/{id}', ['as' => 'admin.especialidade.update', 'uses' => 'Admin\EspecialidadeController@update']);
+    //Rota para marcar como eliminado
+    Route::get('destroy/{id}', ['as' => 'admin.especialidade.destroy', 'uses' => 'Admin\EspecialidadeController@destroy']);
+    //Rota de eliminar/purgar
+    Route::get('purge/{id}', ['as' => 'admin.especialidade.purge', 'uses' => 'Admin\EspecialidadeController@purge']);
+});
+Route::prefix('tc_hospital')->group(function () {
+    //Rota de listar
+    Route::get('index', ['as' => 'admin.tc_hospital.index', 'uses' => 'Admin\TipoConsultaHospitalController@index']);
+    //Rota para armazenar
+    Route::post('store', ['as' => 'admin.tc_hospital.store', 'uses' => 'Admin\TipoConsultaHospitalController@store']);
+    //Rota para actualizar
+    Route::post('update/{id}', ['as' => 'admin.tc_hospital.update', 'uses' => 'Admin\TipoConsultaHospitalController@update']);
+    //Rota para marcar como eliminado
+    Route::get('destroy/{id}', ['as' => 'admin.tc_hospital.destroy', 'uses' => 'Admin\TipoConsultaHospitalController@destroy']);
+    //Rota de eliminar/purgar
+    Route::get('purge/{id}', ['as' => 'admin.tc_hospital.purge', 'uses' => 'Admin\TipoConsultaHospitalController@purge']);
 });
 Route::prefix('horario')->group(function () {
     //Rota de listar
@@ -215,7 +278,6 @@ Route::prefix('Notificacao')->group(function () {
     Route::get('destroy/{id}', ['as' => 'admin.Notificacao.destroy', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@destroy']);
     Route::get('purge/{id}', ['as' => 'admin.Notificacao.purge', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@purge']);
     Route::get('vizualize', ['as' => 'admin.notificacao.vizualize', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@vizualize']);
-    Route::get('getApartamento', ['as' => 'admin.notificacao.getApartamento', 'uses' => 'App\Http\Controllers\Admin\NotificacaoController@getApartamento']);
 
 });
 

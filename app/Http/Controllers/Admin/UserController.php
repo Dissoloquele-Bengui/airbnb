@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Gestor;
+use App\Models\CarroUsuario;
+use App\Models\Contacto;
+use App\Models\Coordenadas;
+use App\Models\Especialidade;
 use App\Models\Hospital;
+use App\Models\Funcionario;
+use App\Models\Gestor;
 use App\Models\Logger;
 use App\Models\Medico;
 use App\Models\Paciente;
@@ -32,20 +37,78 @@ class UserController extends Controller
 
     public function index(){
 
-            $data['usuarios'] = User::all();
-        if(Auth::user()->nivel!="Administrador" || Auth::user()->nivel!="Admin de Campeonato"){
-            return view('admin.usuario.edit.index',);
+            $data['usuarios'] = User::leftJoin('medicos','medicos.id_user','users.id')
+                ->leftJoin('funcionarios','funcionarios.id_user','users.id')
+                ->select('users.*',
+                    'medicos.id_hospital as id_hospital',
+                    'medicos.id_especialidade as id_especialidade',
+                    'funcionarios.id_hospital as id_hospital2'
+                )->get();
+            $data['hospitais'] = Hospital::all();
+            $data['especialidades'] = Especialidade::all();
 
-        }
         $this->loggerData("Listou Usuários");
 
         return view('admin.usuario.index', $data);
 
     }
-    public function perfil(){
+    public function funcionario(){
+        $empresa_user_id = Funcionario::where('id_user',Auth::id())->first()
+        ->id_hospital;
+        $data['funcionario_view']=true;
+        $data['usuarios'] = User::leftJoin('empresa_usuarios','users.id','empresa_usuarios.id_user')
+            ->leftJoin('carro_usuarios','carro_usuarios.id_user','users.id')
+            ->leftJoin('empresas','empresa_usuarios.id_hospital','empresas.id')
+            ->select('users.*','carro_usuarios.marca as marca','carro_usuarios.modelo as modelo','carro_usuarios.matricula as matricula','empresas.id as id_hospital')
+            ->where('nivel',"Funcionário")
+            ->where('id_hospital',$empresa_user_id)
+            ->get();
+
+        $data['empresas'] = Hospital::where('id',$empresa_user_id)->get();
+
+        $this->loggerData("Listou Funcionários");
+
+        return view('admin.usuario.funcionario', $data);
+
+    }
+    public function proprietario(){
+        $data['proprietario_view']=true;
+        $empresa_user_id = Funcionario::where('id_user',Auth::id())->first()
+        ->id_hospital;
+        $data['usuarios'] = User::leftJoin('empresa_usuarios','users.id','empresa_usuarios.id_user')
+            ->leftJoin('carro_usuarios','carro_usuarios.id_user','users.id')
+            ->leftJoin('empresas','empresa_usuarios.id_hospital','empresas.id')
+            ->select('users.*','carro_usuarios.marca as marca','carro_usuarios.modelo as modelo','carro_usuarios.matricula as matricula','empresas.id as id_hospital')
+            ->where('nivel',"Medico")
+            //->where('id_hospital',$empresa_user_id)
+            ->get();
+
+        $data['empresas'] = Hospital::where('id',$empresa_user_id)->get();
+        //dd($data['usuarios']);
+        $this->loggerData("Listou Medicos");
+
+        return view('admin.usuario.proprietario', $data);
+
+    }
+    public function cliente(){
+
+        $data['usuarios'] = User::leftJoin('empresa_usuarios','users.id','empresa_usuarios.id_user')
+            ->leftJoin('carro_usuarios','carro_usuarios.id_user','users.id')
+            ->leftJoin('empresas','empresa_usuarios.id_hospital','empresas.id')
+            ->select('users.*','carro_usuarios.marca as marca','carro_usuarios.modelo as modelo','carro_usuarios.matricula as matricula','empresas.id as id_hospital')
+            ->where('nivel',"Cliente Singular")
+            ->get();
+        $data['cliente_view']=true;
+        $data['empresas'] = Hospital::all();
+        $this->loggerData("Listou Medicos");
+
+        return view('admin.usuario.proprietario', $data);
+
+    }
+    public function create(){
 
 
-        return view('admin.usuario.edit.index');
+        return view('admin.usuario.create.index');
     }
 
     /**
@@ -71,8 +134,22 @@ class UserController extends Controller
                 'email'=>$request->email,
                 'nivel'=>$request->tipo,
                 'password'=>Hash::make($request->password),
+                'genero'=>$request->genero
 
             ]);
+
+            if($request->tipo == "Médico"){
+                Medico::create([
+                    'id_hospital'=>$request->id_hospital,
+                    'id_user'=>$usuario->id,
+                    'id_especialidade'=>$request->id_especialidade,
+                ]);
+            }else if($request->tipo == "Funcionário"){
+                Funcionario::create([
+                    'id_hospital'=>$request->id_hospital,
+                    'id_user'=>$usuario->id
+                ]);
+            }
 
             $this->loggerData(" Cadastrou o usuario " . $request->name);
 
@@ -80,7 +157,7 @@ class UserController extends Controller
 
         } catch (\Throwable $th) {
             throw $th;
-            //dd($th);
+            dd($th);
             return redirect()->back()->with('user.create.error',1);
         }
 
@@ -141,30 +218,17 @@ class UserController extends Controller
                 'email'=>$request->email,
                 'nivel'=>$request->tipo,
                 'password'=>Hash::make($request->password),//Criptografando a senha em laravel
-                'morada'=>$request->morada,
-                'nif'=>$request->nif
+
 
             ]);
-            if($request->tipo=="Paciente"){
-                Paciente::where('user_id',$id)->create([
-                    'data_nasc'=>$request->data_nasc,
-                    'contacto'=>$request->contacto
-                ]);
-            }else if($request->tipo =="Medico"){
-                Medico::where('user_id',$id)->create([
-                    'especializacao'=>$request->especializacao,
-                    'hospital_id'=>$request->hospital_id
-                ]);
-            }
-            //dd($request->id_restaurante);
 
-            //dd(Gestor::all());
             $this->loggerData("Editou o usuario que possui o id $usuario->id ");
 
             return redirect()->back()->with('user.update.success',1);
 
         } catch (\Throwable $th) {
-
+            throw $th;
+            dd($th);
             return redirect()->back()->with('user.update.error',1);
         }
     }

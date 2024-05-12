@@ -45,21 +45,21 @@
                           @endphp
                           <tr>
                               <td>
-                                  <img src="{{asset($equipa_1->logo)}}" width="100px" height="70px" style="border-radius:100%" alt=""> 
-                                  {{$equipa_1->equipa}} 
+                                  <img src="{{asset($equipa_1->logo)}}" width="100px" height="70px" style="border-radius:100%" alt="">
+                                  {{$equipa_1->equipa}}
                                   <span class="text-right">{{$jogo->gols_1}}</span>
                               </td>
 
                               <td>
-                                  <span class="text-right">{{$jogo->gols_2}}</span> 
-                                  {{$equipa_2->equipa}}  
+                                  <span class="text-right">{{$jogo->gols_2}}</span>
+                                  {{$equipa_2->equipa}}
                                   <img src="{{asset($equipa_2->logo)}}" width="100px" height="70px" style="border-radius:100%" alt="">
                               </td>
                           </tr>
                           <tr>
                               <td colspan="2">
                                   <p class="text-center fs-3">Dia {{$jogo->dia}}</p>
-                                  <p class="text-center fs-3">Horário {{$jogo->hora_inicio}} - {{$jogo->hora_termino}}</p>
+                                  <p class="text-center fs-3">Horário {{$jogo->hora_inicio}} - {{$jogo->hora_fim}}</p>
                                   <p class="text-center fs-3">Rodada {{{$jogo->epoca}}}</p>
                               </td>
                           </tr>

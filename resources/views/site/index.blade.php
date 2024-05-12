@@ -1,116 +1,97 @@
 @extends("layouts._includes.site.body")
 @section("titulo", "Página Inicial")
 @section("conteudo")
-    	<!-- hero area -->
-	<div class="hero-area hero-bg" style="background-image: url({{asset('assets/banner2.webp')}})">
-		<div class="container">
-			<div class="row">
-				<div class="text-center col-lg-9 offset-lg-2">
-					<div class="hero-text">
-						<div class="hero-text-tablecell">
-							<p class="subtitle">Gestão de Campeonatos</p>
-							<h3 style="color:white">Gerencie seus campeonatos de futebol com facilidade.</h3>
-							<div class="hero-btns">
-                                @if (Auth::check())
-                                    <a href="/dashboard"  class=" boxed-btn">Comece agora</a>
-                                @else
-                                    <a href="{{route('register')}}"  class=" boxed-btn">Comece agora</a>
-                                @endif
-								<a href="{{route('sgcf.site.sobre')}}" class="bordered-btn">Sobre Nós</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end hero area -->
-
-	<!-- features list section -->
-	<div class="list-section pt-80 pb-80">
-		<div class="container">
-
-			<div class="row">
-				<div class="mb-4 col-lg-4 col-md-6 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-user-md"></i>
-						</div>
-						<div class="content">
-							<h3>Gestão de Equipes</h3>
-							<p>Gerencie suas equipes com eficiência!</p>
-						</div>
-					</div>
-				</div>
-				<div class="mb-4 col-lg-4 col-md-6 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-phone-volume"></i>
-						</div>
-						<div class="content">
-							<h3>Suporte 24/7</h3>
-							<p>Obtenha suporte a qualquer hora</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="list-box d-flex justify-content-start align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-sync"></i>
-						</div>
-						<div class="content">
-							<h3>Atualizações em Tempo Real</h3>
-							<p>Receba atualizações instantâneas sobre seus campeonatos!</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<!-- end features list section -->
-
-	<!-- product section -->
-	<div class="product-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="text-center col-lg-8 offset-lg-2">
-					<div class="section-title">
-						<h3><span class="orange-text">Nossos</span> Serviços de Gestão</h3>
-						<p>No nosso sistema de gestão de campeonatos de futebol, oferecemos uma plataforma completa para você administrar seus torneios de forma eficaz e organizada. Desde a gestão de equipes até a atualização em tempo real dos resultados, estamos aqui para simplificar sua vida como organizador.</p>
-					</div>
-				</div>
-			</div>
+<div class="main-banner">
+    <div class="owl-carousel owl-banner">
+      <div class="item item-1">
+        <div class="header-text">
+          <span class="category">Toronto, <em>Canada</em></span>
+          <h2>Hurry!<br>Get the Best Villa for you</h2>
+        </div>
+      </div>
+      <div class="item item-2">
+        <div class="header-text">
+          <span class="category">Melbourne, <em>Australia</em></span>
+          <h2>Be Quick!<br>Get the best villa in town</h2>
+        </div>
+      </div>
+      <div class="item item-3">
+        <div class="header-text">
+          <span class="category">Miami, <em>South Florida</em></span>
+          <h2>Act Now!<br>Get the highest level penthouse</h2>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
-		</div>
-	</div>
-	<!-- end product section -->
+  <div class="fun-facts">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="wrapper">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="counter">
+                  <h2 class="timer count-title count-number" data-to="34" data-speed="1000"></h2>
+                   <p class="count-text ">Buildings<br>Finished Now</p>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="counter">
+                  <h2 class="timer count-title count-number" data-to="12" data-speed="1000"></h2>
+                  <p class="count-text ">Years<br>Experience</p>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="counter">
+                  <h2 class="timer count-title count-number" data-to="24" data-speed="1000"></h2>
+                  <p class="count-text ">Awwards<br>Won 2023</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-
-	<!-- advertisement section -->
-	<div class="abt-section mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-bg" >
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-text">
-						<p class="top-sub">Desde 2024</p>
-						<h2><span class="orange-text">Gestão de Campeonatos</span></h2>
-						<p>Bem-vindo ao nosso sistema de gestão de campeonatos de futebol. Estamos aqui para simplificar sua vida como organizador, proporcionando ferramentas poderosas para gerenciar equipes, agendar jogos e manter seus torneios atualizados. Com nossa plataforma, você pode focar no que realmente importa: o jogo!</p>
-						<a href="{{route('sgcf.site.sobre')}}" class="mt-4 boxed-btn">Saiba Mais...</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end advertisement section -->
-	<!-- end shop banner -->
+  <div class="properties section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 offset-lg-4">
+          <div class="text-center section-heading">
+            <h6>| Properties</h6>
+            <h2>We Provide The Best Property You Like</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        @foreach (propriedades()->where('estado',1)->limit(6)->get() as $propriedade)
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items {{$propriedade->tipo}}">
+            <div class="item">
+              <a href="{{route('villa.site.propertyDetail',['id'=>$propriedade->id])}}"><img src="{{asset($propriedade->imagem)}}" alt=""></a>
+              <span class="category">{{$propriedade->tipo}}</span>
+              <h6>$2.264.000</h6>
+              <h4><a href="{{route('villa.site.propertyDetail',['id'=>$propriedade->id])}}">{{$propriedade->provincia.", ".$propriedade->municipio.", ".$propriedade->bairro." Rua ".$propriedade->rua}}</a></h4>
+              <ul>
+                <li>Quartos: <span>{{$propriedade->qtd_quartos}}</span></li>
+                <li>Quartos de Banho: <span>{{$propriedade->banheiros}}</span></li>
+                <li>Area: <span>{{$propriedade->largura*$propriedade->comprimento}}</span></li>
+                <li>Andar: <span>{{$propriedade->andar}}</span></li>
+                <li>Quintal: <span>{{$propriedade->quintal}}</span></li>
+              </ul>
+              <div class="main-button">
+                <a href="{{route('villa.site.propertyDetail',['id'=>$propriedade->id])}}">Ver Mais</a>
+              </div>
+            </div>
+          </div>
+        @endforeach
+      </div>
+    </div>
+  </div>
 
 
 @endsection

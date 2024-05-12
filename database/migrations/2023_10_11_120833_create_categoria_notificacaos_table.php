@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categoria_notificacoes', function (Blueprint $table) {
+       /* Schema::create('categoria_notificacoes', function (Blueprint $table) {
             $table->id();
             $table->string("vc_nome");
             $table->text("lt_descricao");
             $table->softDeletes();
             $table->timestamps();
-        });
+        });*/
     }
 
     /**

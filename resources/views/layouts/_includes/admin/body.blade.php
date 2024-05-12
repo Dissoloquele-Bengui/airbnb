@@ -29,6 +29,7 @@
     <script src="{{asset('painel/js/tinycolor-min.js')}}"></script>
     <script src="{{asset('painel/js/config.js')}}"></script>
     <script src="{{asset('painel/js/d3.min.js')}}"></script>
+    <script src="{{asset('site/assets/js/owl-carousel.js')}}"></script>
     <script src="{{asset('painel/js/topojson.min.js')}}"></script>
     <script src="{{asset('painel/js/datamaps.all.min.js')}}"></script>
     <script src="{{asset('painel/js/datamaps-zoomto.js')}}"></script>
