@@ -14,6 +14,22 @@
 
   <div class="section properties">
     <div class="container">
+      <div class="filter-form">
+        <form id="property-filter-form">
+          <div class="row">
+            <div class="col-md-4">
+              <input type="text" class="form-control" id="provincia" placeholder="Província">
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control" id="municipio" placeholder="Município">
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control" id="bairro" placeholder="Bairro">
+            </div>
+          </div>
+          <button type="button" class="mt-3 btn btn-primary" id="filter-button">Filtrar</button>
+        </form>
+      </div>
       <ul class="properties-filter">
         <li>
             <a class="is_active" href="#!" data-filter="*">Todos</a>
@@ -50,9 +66,29 @@
     </div>
   </div>
 
+@endsection
 
+@section('scripts')
+<script>
+  $(document).ready(function(){
+    // Função para filtrar os cards
+    $("#filter-button").click(function(){
+      var provincia = $("#provincia").val();
+      var municipio = $("#municipio").val();
+      var bairro = $("#bairro").val();
 
+      $(".properties-items").hide(); // Esconder todos os cards
 
-
-
+      // Mostrar apenas os cards que correspondem aos filtros selecionados
+      $(".properties-items").filter(function(){
+        var propriedade = $(this);
+        return (
+          (provincia === "" || propriedade.hasClass(provincia)) &&
+          (municipio === "" || propriedade.hasClass(municipio)) &&
+          (bairro === "" || propriedade.hasClass(bairro))
+        );
+      }).show();
+    });
+  });
+</script>
 @endsection

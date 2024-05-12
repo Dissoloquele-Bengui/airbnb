@@ -28,6 +28,6 @@ https://templatemo.com/tm-591-villa-agency
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
+    <script src="{{asset('site/vendor/jquery/jquery.min.js')}}"></script>
   </head>
 

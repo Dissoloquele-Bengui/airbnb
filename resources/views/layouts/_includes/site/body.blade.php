@@ -80,18 +80,14 @@
   @include('layouts._includes.site.footer')
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="{{asset('site/vendor/jquery/jquery.min.js')}}"></script>
+
   <script src="{{asset('site/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
   <script src="{{asset('site/assets/js/isotope.min.js')}}"></script>
   <script src="{{asset('site/assets/js/owl-carousel.js')}}"></script>
   <script src="{{asset('site/assets/js/counter.js')}}"></script>
   <script src="{{asset('site/assets/js/custom.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.2/trumbowyg.min.js" integrity="sha512-mBsoM2hTemSjQ1ETLDLBYvw6WP9QV8giiD33UeL2Fzk/baq/AibWjI75B36emDB6Td6AAHlysP4S/XbMdN+kSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        $(document).ready(function() {
-            $('.form-control').select2();
-        });
-    </script>
+    
     <script>
         $(document).ready(function() {
             $('.descricao').trumbowyg();
