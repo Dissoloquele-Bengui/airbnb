@@ -42,12 +42,6 @@ Route::prefix('dog/site')->group(function () {
     });
 
 });
-Route::prefix('dog/site')->middleware('auth')->group(function () {
-    Route::get('gerarGuia/{id}', ['as' => 'villa.site.gerarGuia', 'uses' => 'Site\PagamentoController@gerarGuia']);
-    Route::post('efectuarPagamento/{id}', ['as' => 'villa.site.efectuarPagamento', 'uses' => 'Site\PagamentoController@efectuarPagamento']);
-
-
-});
 Route::prefix('dog/site/user')->middleware('auth')->group(function () {
     //Rota para acessar o perfil do usuário
     Route::get('perfil', ['as' => 'villa.site.perfil', 'uses' => 'Site\UserController@perfil']);

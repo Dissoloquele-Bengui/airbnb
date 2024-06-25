@@ -45,72 +45,65 @@
     </div>
 </div>
 
+<!-- Adiciona o script da API da Yandex -->
+<script src="https://api-maps.yandex.com/2.1/?apikey=1271170b-3c02-43b1-ad64-24b7963a585b&lang=pt_BR"></script>
+<script>
+    ymaps.ready(init);
+    let minhasCoordenadas = { latitude:-8.0125,longitude:13.1352};
+    function init() {
+        var geolocation = ymaps.geolocation,
+            myMap = new ymaps.Map('mapa', {
+                center: [-8.835537, 13.233181],
+                zoom: 10
+            }, {
+                searchControlProvider: 'yandex#search'
+            });
+
+        // Obtém a posição do usuário pelo IP e adiciona o marcador no mapa
+        geolocation.get({
+            provider: 'yandex',
+            mapStateAutoApply: true
+        }).then(function (result) {
+            result.geoObjects.options.set('preset', 'islands#redCircleIcon');
+            result.geoObjects.get(0).properties.set({
+                balloonContentBody: 'Minha localização'
+            });
+            var userCoordinates = result.geoObjects.get(0).geometry.getCoordinates();
+            console.log('User coordinates (Yandex):', userCoordinates[0]);
+            minhasCoordenadas = {latitude:userCoordinates[0],longitude:userCoordinates[1]};
+                   // Obtém a posição da propriedade
+            var carro = {!! json_encode($propriedade) !!};
+            var carroLatitude = parseFloat(carro.latitude);
+            var carroLongitude = parseFloat(carro.longitude);
+
+            var carroPlacemark = new ymaps.Placemark([carroLatitude, carroLongitude], {
+                balloonContentBody: 'Propriedade'
+            }, {
+                preset: 'islands#greenDotIcon'
+            });
+
+            myMap.geoObjects.add(carroPlacemark);
+            console.log(minhasCoordenadas);
+            // Cria a rota entre a posição do usuário e a propriedade (exemplo com pontos fixos)
+            var rota = new ymaps.multiRouter.MultiRoute({
+                referencePoints: [
+                    [carroLatitude, carroLongitude], // Posição da propriedade
+                    [minhasCoordenadas.latitude, minhasCoordenadas.longitude] // Posição inicial (poderia ser a localização do usuário)
+                ],
+                params: {
+                    results: 1
+                }
+            }, {
+                boundsAutoApply: true
+            });
+
+            myMap.geoObjects.add(rota);
+            myMap.geoObjects.add(result.geoObjects);
+        });
 
 
 
 
-    <!-- simulação de um trajecto -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
-    <script>
-        var mapa;
-        var pessoaMarker, carroMarker, linhaMovimento, linhaRota;
-
-        // Iniciar o mapa com as posições iniciais
-        iniciarMapa();
-
-        // Função para iniciar o mapa e atualizar as posições
-        function iniciarMapa() {
-            mapa = L.map('mapa').setView([0, 0], 11); // Definir a visão inicial com valores temporários
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-            }).addTo(mapa);
-
-            // Obter a posição inicial da pessoa do navegador
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var minhaLatitude = position.coords.latitude;
-                    var minhaLongitude = position.coords.longitude;
-
-                    pessoaMarker = L.marker([minhaLatitude, minhaLongitude]).addTo(mapa);
-                    pessoaMarker.bindTooltip('EU').openTooltip(); // Adicionar label "EU" ao marcador da pessoa
-
-                    mapa.setView([minhaLatitude, minhaLongitude], 11); // Definir a visão para a posição da pessoa
-
-                    // Obter a posição inicial do carro
-                    var carro = {!! json_encode($propriedade) !!};
-                    var carroLatitude = parseFloat(carro.latitude);
-                    var carroLongitude = parseFloat(carro.longitude);
-
-                    carroMarker = L.marker([carroLatitude, carroLongitude]).addTo(mapa);
-                    carroMarker.bindTooltip('Propriedade').openTooltip(); // Adicionar label "Propriedade" ao marcador do carro
-
-                    // Roteamento da pessoa ao carro
-                    linhaRota =  L.Routing.control({
-                        waypoints: [
-                            L.latLng(minhaLatitude, minhaLongitude),
-                            L.latLng(carroLatitude, carroLongitude)
-                        ],
-                        language: 'es', // Altere para o idioma desejado
-                        lineOptions: {
-                            styles: [{color: 'blue', opacity: 0.6, weight: 6}]
-                        }
-                    }).addTo(mapa);
-
-                    // Linha de movimento do carro (vermelha)
-                    linhaMovimento = L.polyline([carroMarker.getLatLng()], { color: 'red' }).addTo(mapa);
-
-                    // Linha de rota da pessoa ao carro (azul)
-                    linhaRota.addTo(mapa);
-
-
-                }, function(error) {
-                    console.error("Erro ao obter a localização:", error);
-                });
-            } else {
-                console.log("Geolocalização não suportada pelo navegador.");
-            }
-        }
-    </script>
+    }
+</script>
 @endsection

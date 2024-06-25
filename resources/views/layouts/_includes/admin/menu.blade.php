@@ -1,34 +1,33 @@
-<div class="wrapper">
-    <nav class="topnav navbar navbar-light">
+<nav class="topnav navbar navbar-light">
     <button type="button" class="p-0 mt-2 mr-3 navbar-toggler text-muted collapseSidebar">
-      <i class="fe fe-menu navbar-toggler-icon"></i>
+    <i class="fe fe-menu navbar-toggler-icon"></i>
     </button>
     <ul class="nav">
-      <li class="nav-item">
+    <li class="nav-item">
         <a class="my-2 nav-link text-muted" href="#" id="modeSwitcher" data-mode="light">
-          <i class="fe fe-sun fe-16"></i>
+        <i class="fe fe-sun fe-16"></i>
         </a>
-      </li>
-      <li class="nav-item dropdown">
+    </li>
+    <li class="nav-item dropdown">
         <a class="pr-0 nav-link dropdown-toggle text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="mt-2 avatar avatar-sm">
+        <span class="mt-2 avatar avatar-sm">
             <img src="" alt="..." class="avatar-img rounded-circle">
-          </span>
+        </span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="pl-3 dropdown-item" href="{{ route('villa.site.index') }}">
                 <span class="ml-1 item-text" >Voltar Para o Site</span>
             </a>
-          <form action="{{ route('logout') }}" method="POST">
+        <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <a href="{{ route('logout') }}"  class="dropdown-item" onclick="event.preventDefault();
                 this.closest('form').submit();">Terminar Sessão</a>
-          </form>
-          {{-- <a class="dropdown-item" href="#">Activities</a> --}}
+        </form>
+        {{-- <a class="dropdown-item" href="#">Activities</a> --}}
         </div>
-      </li>
+    </li>
     </ul>
-    </nav>
+</nav>
 
 <aside class="bg-white shadow sidebar-left border-right" id="leftSidebar" data-simplebar>
     <a href="#" class="mt-3 ml-2 btn collapseSidebar toggle-btn d-lg-none text-muted" data-toggle="toggle">
@@ -85,4 +84,4 @@
 
 
     </nav>
-  </aside>
+</aside>

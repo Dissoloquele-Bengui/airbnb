@@ -1,34 +1,33 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
-
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-        </div>
-
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        <x-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('password.email') }}">
+@extends('layouts._includes.admin.body')
+@section('titulo', "Recuperar Senha")
+@section('conteudo')
+@php
+    $login = true;
+@endphp
+<div class="wrapper vh-100">
+    <div class="row align-items-center h-100">
+        <form class="mx-auto text-center col-lg-3 col-md-4 col-10" method="POST" action="{{ route('password.email') }}">
             @csrf
-
-            <div class="block">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <h1 class="mb-3 h2">Recuperar Senha</h1>
+            <div class="mb-4 text-sm text-gray-600">
+                {{ __('Esqueceu sua senha? Sem problemas. Informe seu endereço de email e enviaremos um link para redefinição de senha.') }}
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-button>
+            @if (session('status'))
+                <div class="mb-4 font-medium text-sm text-green-600">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <div class="form-group">
+                <label for="email" class="sr-only">Email</label>
+                <input id="email" name="email" type="email" class="form-control form-control-lg" placeholder="Endereço de Email" value="{{ old('email') }}" required autofocus autocomplete="username">
             </div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar Link de Redefinição de Senha</button>
+            <a class="btn btn-lg btn-link btn-block" href="/">Voltar à Página Inicial</a>
+            <p class="mt-5 mb-3 text-muted">© 2024</p>
         </form>
-    </x-authentication-card>
-</x-guest-layout>
+    </div>
+</div>
+@endsection

@@ -25,9 +25,10 @@
             <input type="checkbox" value="remember-me" name="remember"> Lembrar a senha </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sessão</button>
+        <a class="btn btn-lg btn-link btn-block" href="{{route('password.email')}}" >Esqueceu a Senha?</a>
         <a class="btn btn-lg btn-link btn-block" href="/" >Voltar a página inicial</a>
         <p class="mt-5 mb-3 text-muted">© 2024</p>
       </form>
-    </div>
+</div>
 @endsection
 

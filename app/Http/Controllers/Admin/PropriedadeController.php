@@ -56,7 +56,7 @@ class PropriedadeController extends Controller
 
      public function store(Request $request){
 
-      //  dd($request);
+        //dd($request);
         try{
             $propriedade=Propriedade::create([
                 'rua' => 2,
@@ -81,7 +81,8 @@ class PropriedadeController extends Controller
             if(isset($request->imagem)){
                 Imagem::create([
                     'caminho'=>upload($request->imagem),
-                    'id_propriedade'=>$propriedade->id
+                    'id_propriedade'=>$propriedade->id,
+                    'tipo'=>"capa"
                  ]);
             }
              $this->loggerData(" Cadastrou uma propriedade " . $request->nome);
